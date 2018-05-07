@@ -2,7 +2,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as courseActions from '../../actions/courseActions';
-import { Z_HUFFMAN_ONLY } from 'zlib';
 
 class CoursesPage extends React.Component {
 

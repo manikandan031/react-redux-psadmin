@@ -1,6 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import { bindActionCreators } from 'redux';
 import * as courseActions from '../../actions/courseActions';
+import { Z_HUFFMAN_ONLY } from 'zlib';
 
 class CoursesPage extends React.Component {
 
@@ -22,7 +24,7 @@ class CoursesPage extends React.Component {
         });
     }
     onSave() {
-        this.props.dispatch(courseActions.createCourse(this.state.course));
+        this.props.actions.createCourse(this.state.course);
     }
     createCourseRow(course, index){
         return (
@@ -55,7 +57,7 @@ class CoursesPage extends React.Component {
 
 CoursesPage.propTypes = {
     courses: React.PropTypes.array,
-    dispatch: React.PropTypes.func
+    actions: React.PropTypes.object
 };
 
 function mapStateToProps(state, props) {
@@ -64,4 +66,10 @@ function mapStateToProps(state, props) {
     };
 }
 
-export default connect(mapStateToProps)(CoursesPage);
+function mapDispatchToProps(dispatch){
+    return {
+        actions: bindActionCreators(courseActions, dispatch)
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage);

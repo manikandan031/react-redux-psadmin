@@ -41,8 +41,9 @@ class CourseForm extends React.Component {
                            onChange={this.props.onChange}
                            errors="" 
                            />
-                <SelectInput name="author" 
-                             label="Authors"
+                <SelectInput name="authorId" 
+                             label="Authors" 
+                             value={course.authorId}
                              options={authorOptions}
                              defaultOption="Select author"
                              onChange={this.props.onChange}

@@ -4,12 +4,6 @@ import SelectInput from '../common/SelectInput';
 
 class CourseForm extends React.Component {
 
-    
-
-    onChange(event){
-
-    }
-    
     getAllAuthorOptions(){
         let authors = this.props.authors;
         let authorOptions = authors.map(author => {
@@ -26,33 +20,34 @@ class CourseForm extends React.Component {
         let authorOptions = this.getAllAuthorOptions();
         return (
             <div>
-                <TextInput name="courseTitle" 
+                <TextInput name="title" 
                            placeholder="Course Title" 
                            label="Course Title" 
                            value={course.title} 
-                           onChange={this.onChange} 
+                           onChange={this.props.onChange} 
                            errors="" 
                            />
                 <TextInput name="length" 
                            placeholder="Course Length" 
                            label="Course Length" 
                            value={course.length} 
-                           onChange={this.onChange} 
+                           onChange={this.props.onChange} 
                            errors="" 
                            />
                 <TextInput name="category" 
                            placeholder="Course Category" 
                            label="Course Category" 
                            value={course.category} 
-                           onChange={this.onChange}
+                           onChange={this.props.onChange}
                            errors="" 
                            />
-                <SelectInput name="Authors" 
+                <SelectInput name="author" 
                              label="Authors"
                              options={authorOptions}
                              defaultOption="Select author"
+                             onChange={this.props.onChange}
                             />
-                <button type="submit" className="btn btn-primary" onSave={this.props.onSave}>Save</button>
+                <button type="submit" className="btn btn-primary" onClick={this.props.onSave}>Save</button>
             </div>
         );
     }
@@ -61,6 +56,7 @@ class CourseForm extends React.Component {
 CourseForm.propTypes = {
     course: PropTypes.object.isRequired,
     authors: PropTypes.array.isRequired,
+    onChange: PropTypes.func.isRequired, 
     onSave: PropTypes.func.isRequired
 };
 

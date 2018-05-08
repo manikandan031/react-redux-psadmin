@@ -17,3 +17,20 @@ export function loadCoursesSuccess(courses){
         courses: courses
     };
 }
+
+export function saveCourse(course){
+    return function(dispatch){
+        courseApi.saveCourse(course).then(
+            course => {dispatch(saveCourseSuccess(course));
+        }).catch(error =>{
+            throw error;
+        });
+    };
+}
+
+export function saveCourseSuccess(course){
+    return {
+        type: actionTypes.SAVE_COURSE_SUCCESS,
+        course: course
+    };
+}

@@ -1,33 +1,42 @@
 import React, {PropTypes} from 'react';
+import {browserHistory} from 'react-router';
+import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import CourseForm from './CourseForm';
+import * as courseActions from '../../actions/courseActions';
 
 class ManageCoursePage extends React.Component {
 
     constructor(props){
         super(props);
         this.state = {
-            course: {
-                id: '',
-                title: '',
-                author: '',
-                length: '',
-                category: ''
-            }
+            course: Object.assign({},props.course)
         };
+        this.onChange = this.onChange.bind(this);
+        this.onSave = this.onSave.bind(this);
+    }
+
+    onChange(event){
+        let course = Object.assign({}, this.state.course);
+        course[event.target.name] = event.target.value;
+        this.setState({
+            course: course
+        });
     }
 
     onSave(){
-        
+        this.props.actions.saveCourse(this.state.course);
+        browserHistory.push('/courses');
     }
 
     render() {
         return (
             <div>
                 <h2>Manage Course</h2>
-                <CourseForm course={this.props.course} 
+                <CourseForm course={this.state.course} 
                             authors={this.props.authors} 
                             onSave = {this.onSave} 
+                            onChange= {this.onChange}
                             />
             </div>
         );
@@ -36,7 +45,8 @@ class ManageCoursePage extends React.Component {
 
 ManageCoursePage.propTypes = {
     course: PropTypes.object,
-    authors: PropTypes.array
+    authors: PropTypes.array,
+    actions: PropTypes.object
 };
 
 function mapStateToProps(state, props){
@@ -54,4 +64,10 @@ function mapStateToProps(state, props){
     };
 }
 
-export default connect(mapStateToProps)(ManageCoursePage);
+function mapDispatchToProps(dispatch){
+    return {
+        actions: bindActionCreators(courseActions, dispatch)
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ManageCoursePage);

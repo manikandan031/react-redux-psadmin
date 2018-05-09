@@ -11,11 +11,15 @@ class CoursesPage extends React.Component {
             </div>
         );
     }
+    showLoading(){
+        return <div>Loading...</div>;
+    }
     render() {
         return (
             <div>
                 <h2>Courses</h2>
-                <CourseList courses={this.props.courses} />
+                {this.props.loading && this.showLoading()}
+                {!this.props.loading && <CourseList courses={this.props.courses} />}
             </div>
         );
     }
@@ -23,12 +27,14 @@ class CoursesPage extends React.Component {
 
 CoursesPage.propTypes = {
     courses: React.PropTypes.array,
-    actions: React.PropTypes.object
+    actions: React.PropTypes.object,
+    loading: React.PropTypes.bool
 };
 
 function mapStateToProps(state, props) {
     return {
-        courses: state.courses
+        courses: state.courses,
+        loading: state.numberOfAjaxCalls > 0
     };
 }
 

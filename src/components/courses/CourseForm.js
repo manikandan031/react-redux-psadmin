@@ -48,7 +48,13 @@ class CourseForm extends React.Component {
                              defaultOption="Select author"
                              onChange={this.props.onChange}
                             />
-                <button type="submit" className="btn btn-primary" onClick={this.props.onSave}>Save</button>
+                <button type="submit" 
+                        className="btn btn-primary" 
+                        onClick={this.props.onSave}
+                        disabled={this.props.saving}
+                        >
+                        {this.props.saving ? 'Saving...' : 'Save'}
+                </button>
             </div>
         );
     }
@@ -58,7 +64,8 @@ CourseForm.propTypes = {
     course: PropTypes.object.isRequired,
     authors: PropTypes.array.isRequired,
     onChange: PropTypes.func.isRequired, 
-    onSave: PropTypes.func.isRequired
+    onSave: PropTypes.func.isRequired,
+    saving: PropTypes.bool
 };
 
 export default CourseForm;

@@ -11,7 +11,7 @@ function setup(saving){
         saving: saving,
         onChange: () => {},
         onSave: () => {}
-    }
+    };
     return shallow(<CourseForm {...props} />);
 }
 

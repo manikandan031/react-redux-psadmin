@@ -22,7 +22,7 @@ export function loadCoursesSuccess(courses){
 
 export function saveCourse(course){
     return function(dispatch){
-        courseApi.saveCourse(course).then(
+        return courseApi.saveCourse(course).then(
             course => {dispatch(saveCourseSuccess(course));
         }).catch(error =>{
             throw error;
